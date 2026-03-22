@@ -17,7 +17,7 @@ Because Vault secrets engines are isolated to their own storage barrier, the plu
 
 ### Using pre-built releases
 
-You can find pre-built releases of the plugin here. Once you have downloaded the latest archive corresponding to your target OS, uncompress it to retrieve the vault-plugin-secrets-importer binary file. Move this to each of your Vault nodes where they store plugins.
+You can find pre-built releases of the plugin [here](https://github.com/andrefaria24/vault-plugin-secrets-importer/releases). Once you have downloaded the latest archive corresponding to your target OS, uncompress it to retrieve the vault-plugin-secrets-importer binary file. Move this to each of your Vault nodes where they store plugins.
 
 ### From Source
 
@@ -30,7 +30,7 @@ go build -o vault-plugin-secrets-importer ./cmd/vault-plugin-secrets-importer
 
 ## Configuration
 
-Copy the plugin binary into a directory configured as Vault's `plugin_directory`:
+Copy the plugin binary into a directory configured as Vault's [plugin_directory](https://developer.hashicorp.com/vault/docs/configuration#plugin_directory):
 
 ```hcl
 plugin_directory = "path/to/plugin/directory"
@@ -42,7 +42,7 @@ Start Vault with that configuration:
 vault server -config=path/to/vault/config.hcl
 ```
 
-Register the plugin in the plugin catalog:
+Register the plugin in the [plugin catalog](https://developer.hashicorp.com/vault/docs/plugins#plugin-catalog):
 
 ```bash
 vault plugin register -sha256="$(sha256sum vault-plugin-secrets-importer | cut -d ' ' -f1)" secret vault-plugin-secrets-importer
