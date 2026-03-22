@@ -1,6 +1,6 @@
 # vault-plugin-secrets-importer
 
-This is a HashiCorp Vault secrets engine plugin that imports data from external sources into an existing Vault KV v2 mount.
+This is a HashiCorp Vault plugin that imports data from external sources into an existing Vault KV v2 mount.
 
 The current implementation supports:
 
@@ -225,4 +225,4 @@ Migration safety notes:
 
 ## Issues
 
-If you find a bug or want to request an enhancement, open an issue in this repository.
+If you find a bug or want to request an enhancement, open an [issue](https://github.com/andrefaria24/vault-plugin-secrets-importer/issues) in this repository.
