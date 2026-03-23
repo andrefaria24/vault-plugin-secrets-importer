@@ -51,7 +51,7 @@ vault plugin register -sha256="$(sha256sum vault-plugin-secrets-importer | cut -
 Enable the plugin:
 
 ```bash
-vault secrets enable -path=csv-importer -plugin-name=vault-plugin-secrets-importer plugin
+vault secrets enable -path=foo -plugin-name=vault-plugin-secrets-importer plugin
 ```
 
 Enable a destination KV v2 mount if needed:
@@ -63,7 +63,7 @@ vault secrets enable -path=secret -version=2 kv
 Configure how the plugin talks back to Vault:
 
 ```bash
-vault write csv-importer/config \
+vault write foo/config \
   address="https://vault.example.com:8200" \
   token_file="/etc/vault/importer.token"
 ```
@@ -71,7 +71,7 @@ vault write csv-importer/config \
 You can also provide an inline token:
 
 ```bash
-vault write csv-importer/config \
+vault write foo/config \
   address="https://vault.example.com:8200" \
   token="hvs.xxxxx"
 ```
@@ -79,7 +79,7 @@ vault write csv-importer/config \
 Enterprise and HCP users can set a default namespace:
 
 ```bash
-vault write csv-importer/config \
+vault write foo/config \
   address="https://vault.example.com:8200" \
   token_file="/etc/vault/importer.token" \
   default_namespace="admin"
@@ -88,13 +88,13 @@ vault write csv-importer/config \
 Validate connectivity before importing:
 
 ```bash
-vault write -f csv-importer/config/test
+vault write -f foo/config/test
 ```
 
 Namespace validation example:
 
 ```bash
-vault write csv-importer/config/test namespace="admin/team-a"
+vault write foo/config/test namespace="admin/team-a"
 ```
 
 Notes:
@@ -119,7 +119,7 @@ apps/dev/api,api-user,token-123
 Import it with:
 
 ```bash
-vault write csv-importer/import/csv \
+vault write foo/import/csv \
   kv_mount="secret" \
   base_path="applications" \
   write_mode="put" \
@@ -137,7 +137,7 @@ password,s3cr3t
 Import it with:
 
 ```bash
-vault write csv-importer/import/csv \
+vault write foo/import/csv \
   kv_mount="secret" \
   secret_path="apps/dev/db" \
   cas=0 \
@@ -147,7 +147,7 @@ vault write csv-importer/import/csv \
 Dry-run example:
 
 ```bash
-vault write csv-importer/import/csv \
+vault write foo/import/csv \
   kv_mount="secret" \
   base_path="applications" \
   write_mode="put" \
@@ -160,7 +160,7 @@ vault write csv-importer/import/csv \
 AWS imports use the AWS SDK default credential chain. You can also supply `aws_profile` on the request.
 
 ```bash
-vault write csv-importer/import/aws/secretsmanager \
+vault write foo/import/aws/secretsmanager \
   aws_region="us-east-2" \
   secret_id="prod/app/db" \
   kv_mount="secret" \
@@ -176,7 +176,7 @@ If `parse_json=true` and the source secret is a top-level JSON object, each prop
 Azure imports use `DefaultAzureCredential`.
 
 ```bash
-vault write csv-importer/import/azure/keyvault \
+vault write foo/import/azure/keyvault \
   vault_url="https://example-kv.vault.azure.net/" \
   secret_name="prod-app-db" \
   kv_mount="secret" \
@@ -190,7 +190,7 @@ vault write csv-importer/import/azure/keyvault \
 Conjur imports currently use Conjur login plus API key provided on the request.
 
 ```bash
-vault write csv-importer/import/cyberark/conjur \
+vault write foo/import/cyberark/conjur \
   appliance_url="https://conjur.example.com" \
   account="default" \
   login="host/data/prod/app" \
